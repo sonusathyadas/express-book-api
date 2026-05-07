@@ -23,18 +23,22 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+app.use(express.json());
+
+// Routes
+app.use('/api/books', bookRoutes);
+
 // add a middleware to handle global exceptions and errors
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Something went wrong!' });
 });
 
-app.use(express.json());
+if (require.main === module) {
+    // Start the server
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}
 
-// Routes
-app.use('/api/books', bookRoutes);
-
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+module.exports = app;

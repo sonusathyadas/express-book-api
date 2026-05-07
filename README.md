@@ -38,6 +38,11 @@ books-rest-api
    npm start
    ```
 
+4. **Run tests:**
+   ```
+   npm test
+   ```
+
 ## API Endpoints
 
 ### Create a Book
