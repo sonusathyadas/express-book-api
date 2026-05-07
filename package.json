@@ -1,0 +1,15 @@
+{
+  "name": "books-rest-api",
+  "version": "1.0.0",
+  "description": "A REST API for managing a collection of books using Express.js and Node.js.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
