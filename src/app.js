@@ -27,7 +27,7 @@ app.use(cors({
 
 app.use(express.json());
 
-// Swagger API documentation
+// Swagger API documentation for endpoints
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
