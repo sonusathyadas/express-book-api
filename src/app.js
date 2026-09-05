@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 const bookRoutes = require('./routes/bookRoutes');
 
 const app = express();
@@ -24,6 +26,13 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// Swagger API documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
 
 // Routes
 app.use('/api/books', bookRoutes);
