@@ -35,7 +35,7 @@ app.get('/api-docs.json', (req, res) => {
     res.send(swaggerSpec);
 });
 
-// Routes
+// Routes for apis
 app.use('/api/health', healthRoutes);
 app.use('/api/books', bookRoutes);
 

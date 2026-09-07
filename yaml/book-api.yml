@@ -12,7 +12,7 @@ properties:
       allowInsecure: false
   template:
     containers:
-    - image: ai200training.azurecr.io/book-api:cm1
+    - image: ai200training.azurecr.io/book-api:cm2
       name: book-api
       probes:
       - type: Liveness
