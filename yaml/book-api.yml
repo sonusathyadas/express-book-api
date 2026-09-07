@@ -1,0 +1,40 @@
+identity:
+  type: SystemAssigned
+properties:
+  environmentId: "/subscriptions/aafaea0a-32f8-4de8-9ed0-909959ee022c/resourceGroups/TestGrp/providers/Microsoft.App/managedEnvironments/ai200training-app-env"
+  configuration:
+    registries:
+    - server: ai200training.azurecr.io
+      identity: system
+    ingress:
+      external: true
+      targetPort: 3000
+      allowInsecure: false
+  template:
+    containers:
+    - image: ai200training.azurecr.io/book-api:cm1
+      name: book-api
+      probes:
+      - type: Liveness
+        httpGet:
+          path: "/api/health/live"
+          port: 3000
+        initialDelaySeconds: 3
+        periodSeconds: 3
+      - type: Readiness
+        httpGet:
+          path: "/api/health/ready"
+          port: 3000
+        initialDelaySeconds: 3
+        periodSeconds: 3
+        timeoutSeconds: 5
+        failureThreshold: 3
+    scale:
+      minReplicas: 1
+      maxReplicas: 3
+      rules:
+      - name: httpscalingrule
+        custom:
+          type: http
+          metadata:
+            concurrentRequests: '50'

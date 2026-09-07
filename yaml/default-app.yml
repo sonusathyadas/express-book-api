@@ -1,0 +1,13 @@
+identity:
+  type: SystemAssigned
+properties:
+  environmentId: "/subscriptions/aafaea0a-32f8-4de8-9ed0-909959ee022c/resourceGroups/TestGrp/providers/Microsoft.App/managedEnvironments/ai200training-app-env"
+  configuration:
+    ingress:
+      external: true
+      targetPort: 80
+      allowInsecure: false
+  template:
+    containers:
+    - image: mcr.microsoft.com/azuredocs/containerapps-helloworld:latest
+      name: book-api
