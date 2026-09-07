@@ -3,6 +3,7 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
 const bookRoutes = require('./routes/bookRoutes');
+const healthRoutes = require('./routes/healthRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ app.get('/api-docs.json', (req, res) => {
 });
 
 // Routes
+app.use('/api/health', healthRoutes);
 app.use('/api/books', bookRoutes);
 
 // add a middleware to handle global exceptions and errors

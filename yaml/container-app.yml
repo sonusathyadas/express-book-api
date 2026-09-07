@@ -1,0 +1,40 @@
+name: book-api2
+type: Microsoft.App/containerApps
+location: southeastasia
+
+properties:
+  managedEnvironmentId: /subscriptions/aafaea0a-32f8-4de8-9ed0-909959ee022c/resourceGroups/TestGrp/providers/Microsoft.App/managedEnvironments/ai200training-app-env
+
+  configuration:
+    ingress:
+      external: true
+      targetPort: 8000
+      transport: auto
+
+  template:
+    containers:
+      - name: book-api2
+        image: ai200training.azurecr.io/book-api:cm1
+
+        probes:
+          # Readiness determines whether this replica should receive traffic.
+          # Keep this endpoint lightweight and independent of external dependencies.
+          - type: Readiness
+            httpGet:
+              path: /api/health/ready
+              port: 8000
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+          # Liveness determines whether the replica should be restarted.
+          # Less aggressive settings avoid unnecessary restarts/cold starts.
+          - type: Liveness
+            httpGet:
+              path: /api/health/live
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
