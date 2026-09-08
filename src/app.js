@@ -12,7 +12,6 @@ const allowedOrigins = (process.env.CORS_ALLOWED_ORIGINS || '')
     .map((origin) => origin.trim())
     .filter(Boolean);
 
-// Middleware
 // Configure CORS to allow requests only from approved origins
 app.use(cors({
     origin: (origin, callback) => {
